@@ -1,0 +1,10 @@
+id,name,categ_id/id,detailed_type,uom_id/id,uom_po_id/id,standard_price
+raw_tepung_a,Tepung Bogasari - Adonan A,cat_raw_materials,product,uom_gram,uom_kg,12
+raw_margarin,Margarin Simas,cat_raw_materials,product,uom_gram,uom_kg,25
+raw_ragi,Ragi Instan,cat_raw_materials,product,uom_gram,uom_kg,60
+raw_telur,Telur Ayam,cat_raw_materials,product,uom_gram,uom_kg,28
+raw_gula,Gula Pasir,cat_raw_materials,product,uom_gram,uom_kg,15
+raw_susu,Susu Cair UHT,cat_raw_materials,product,uom_ml,uom_liter,18
+raw_coklat,Cokelat Impor SG (Isian/Toping),cat_raw_materials,product,uom_gram,uom_kg,80
+raw_kopi,Biji Kopi Espresso,cat_raw_materials,product,uom_gram,uom_kg,150
+raw_gula_aren,Gula Aren Cair,cat_raw_materials,product,uom_ml,uom_liter,30

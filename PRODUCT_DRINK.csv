@@ -1,0 +1,10 @@
+id,name,categ_id/id,list_price,uom_id/id
+prod_kopi_aren,Kopi Susu Gula Aren,cat_pos_coffee,27000,uom_cup
+prod_kopi_butter,Kopi Susu Butterscotch,cat_pos_coffee,31050,uom_cup
+prod_kopi_caramel,Kopi Susu Salted Caramel,cat_pos_coffee,31050,uom_cup
+prod_kopi_hazelnut,Kopi Susu Hazelnut,cat_pos_coffee,31050,uom_cup
+prod_americano_h,Americano Hot,cat_pos_coffee,20250,uom_cup
+prod_americano_i,Iced Americano,cat_pos_coffee,20250,uom_cup
+prod_mango_trop,Iced Mango Tropical,cat_pos_non_coffee,20250,uom_cup
+prod_matcha,Iced Creamy Matcha,cat_pos_non_coffee,27000,uom_cup
+prod_chocolate,Iced Chocolate,cat_pos_non_coffee,27000,uom_cup

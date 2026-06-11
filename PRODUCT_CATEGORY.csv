@@ -1,0 +1,5 @@
+id,name,parent_id/id,property_cost_method
+cat_pos_buns,Mexican Buns,cat_all,Average
+cat_pos_coffee,Coffee,cat_all,Average
+cat_pos_non_coffee,Non-Coffee,cat_all,Average
+cat_raw_materials,Bahan Baku,cat_all,Standard
