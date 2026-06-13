@@ -1,81 +1,56 @@
-# Implementasi ERP Odoo — Mamma Roti
+# Panduan Inisialisasi Proyek Odoo Mamma Roti
 
-[![Odoo Version](https://img.shields.io/badge/Odoo-17.0-714B67.svg)](https://www.odoo.com/)
+Dokumen ini memberikan instruksi teknis untuk menyiapkan dan menjalankan lingkungan pengembangan Odoo 17 bagi proyek Mamma Roti menggunakan Docker.
 
-Repositori ini berisi konfigurasi, data master, dan skrip otomasi untuk implementasi ERP Odoo 17 pada **Mamma Roti**. Proyek ini mencakup seluruh rantai pasok mulai dari pengadaan bahan baku, produksi (CK), distribusi, hingga penjualan di gerai (POS).
+## 1. Persyaratan Sistem
+Pastikan perangkat Anda telah menginstal perangkat lunak berikut:
+* Docker Desktop
+* Docker Compose
 
-## 🚀 Fitur Utama
+## 2. Konfigurasi Lingkungan
+Sebelum menjalankan layanan, Anda harus menyiapkan file konfigurasi lingkungan agar koneksi database dapat terbentuk dengan benar.
 
-- **📦 Inventory & Supply Chain:**
-  - Strategi pengambilan barang **FEFO (First Expiry First Out)**.
-  - Tracking nomor LOT dan tanggal kedaluwarsa untuk bahan baku.
-  - Manajemen lokasi multi-gudang (Gudang Utama, Cold Storage, Mitra Demo).
-- **🏭 Manufacturing (MRP):**
-  - Manajemen Recipe (Bill of Materials) untuk roti dan minuman.
-  - Perhitungan Biaya Tenaga Kerja melalui Work Center (Mixing & Packing).
-  - Integrasi otomatis konsumsi stok saat produksi.
-- **🏪 Point of Sale (POS):**
-  - Konfigurasi khusus untuk outlet mitra.
-  - Sinkronisasi stok real-time antara outlet dan pusat.
-- **🧾 Accounting & Finance:**
-  - Inventarisasi otomatis (Automated Valuation).
-  - Laporan Laba Rugi dan Neraca yang terintegrasi.
-  - Chart of Accounts (CoA) yang telah disesuaikan.
+1. Clone repositori ini ke direktori lokal Anda.
+2. Pastikan terdapat file bernama `.env` pada direktori akar proyek. Jika belum ada, buat file tersebut dan masukkan konfigurasi berikut:
 
-## 🛠️ Tech Stack
-
-- **Platform:** Odoo 17.0 (Community/Enterprise)
-- **Database:** PostgreSQL 15
-- **Infrastructure:** Docker & Docker Compose
-- **Automation:** Python Scripts (OdooRPC/XML-RPC)
-
-## 📂 Struktur Repositori
-
-```text
-C:\odoo\
-├── custom_addons/          # Modul kustom dan skrip otomasi
-│   ├── data_import/        # Skrip inisialisasi data (Python)
-│   └── ...                 # Modul Odoo tambahan (MIS Builder, Report XLSX, dll)
-├── PRODUCT_*.csv           # Master data produk dan kategori
-├── RAW_MATERIAL.csv        # Master data bahan baku
-├── VENDOR.csv              # Master data supplier
-├── BRD.md                  # Business Requirements Document
-├── UAT_GUIDE.md            # Panduan pengujian pengguna (UAT)
-└── docker-compose.yaml     # Konfigurasi containerisasi
+```env
+ODOO_HOST=db
+ODOO_USER=odoo
+ODOO_PASSWORD=admin123
+POSTGRES_DB=postgres
+POSTGRES_PASSWORD=admin123
+POSTGRES_USER=odoo
 ```
 
-## ⚙️ Cara Instalasi
+## 3. Menjalankan Layanan
+Buka terminal atau command prompt pada direktori proyek, lalu jalankan perintah berikut:
 
-### 1. Prasyarat
-Pastikan Anda sudah menginstal:
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/)
-
-### 2. Setup Lingkungan
-Salin file `.env.example` menjadi `.env` dan sesuaikan kredensial database Anda.
-```bash
-cp .env.example .env
-```
-
-### 3. Menjalankan Odoo
-Jalankan perintah berikut di root direktori:
 ```bash
 docker-compose up -d
 ```
-Akses Odoo melalui browser di `http://localhost:8069`.
 
-### 4. Inisialisasi Data (Opsional)
-Gunakan skrip di folder `custom_addons/data_import/` untuk mengimpor data secara otomatis:
-```bash
-# Contoh menjalankan skrip import
-python custom_addons/data_import/import_data.py
-```
+Tunggu beberapa saat hingga layanan database dan aplikasi web siap diakses. Anda dapat memantau statusnya melalui Docker Desktop atau menggunakan perintah `docker-compose logs -f`.
 
-## 🧪 Pengujian (UAT)
-Untuk memverifikasi sistem, silakan ikuti langkah-langkah yang ada di [UAT_GUIDE.md](./UAT_GUIDE.md). Panduan tersebut mencakup skenario dari Purchasing hingga Accounting.
+## 4. Inisialisasi Data (Restore Database)
+Untuk memastikan sistem langsung terisi dengan data master (Produk, Stok, BoM) serta konfigurasi spesifik Mamma Roti, lakukan prosedur pemulihan database berikut:
 
-## 👥 Tim Proyek
-Implementasi ini dilakukan oleh **Kelompok 5 - Sistem ERP (UPNVJ)**:
-- Fokus: Optimasi Supply Chain & Manufacturing Mamma Roti.
+1. Dapatkan file backup database (format `.zip`) dari administrator proyek.
+2. Akses halaman Database Manager melalui peramban pada alamat: `http://localhost:8069/web/database/manager`.
+3. Pilih opsi **Restore Database**.
+4. Masukkan parameter berikut:
+   * **Master Password**: Sesuai dengan master key masing-masing.
+   * **File**: Pilih file backup `.zip` yang telah Anda terima (db_Mamma_Roti.zip).
+   * **Database Name**: Masukkan `mammaroti_final`.
+5. Klik **Continue** dan tunggu hingga proses pemulihan selesai.
+
+## 5. Akses dan Validasi
+Setelah database berhasil dipulihkan, Anda dapat masuk ke sistem menggunakan kredensial berikut:
+
+* **Email**: admin
+* **Password**: admin
+
+Untuk panduan pengujian alur bisnis yang meliputi Purchasing, Manufacturing, Point of Sale (POS), dan Accounting, silakan merujuk pada dokumen **[UAT_GUIDE.md](./UAT_GUIDE.md)**.
 
 ---
+**Platform**: Odoo 17.0 Community
+**Infrastruktur**: Docker & PostgreSQL 15
