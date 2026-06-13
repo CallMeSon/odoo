@@ -1,7 +1,7 @@
-product_tmpl_id/id,attribute_line_ids/attribute_id/name,attribute_line_ids/value_ids/name,price_extra
-prod_mexican_buns,Rasa / Toping,Chocolate,10800
-prod_mexican_buns,Rasa / Toping,Choco Cheese,10800
-prod_mexican_buns,Rasa / Toping,Original Butter,9450
-prod_mexican_buns,Rasa / Toping,Vanilla Butter,9450
-prod_mexican_buns,Rasa / Toping,Cheese,10800
-prod_mexican_buns,Rasa / Toping,Vanilla Strawberry,10800
+External ID (id),Nama Produk (name),Kategori (categ_id),Tipe Produk (type),Kebijakan Invoicing,Satuan (uom_id),Harga Jual (list_price)
+prod_bun_chocolate,Mexican Buns Chocolate,cat_pos_buns,Storable Product,Ordered quantities,Pcs,Rp 10.800   HTML
+prod_bun_choco_cheese,Mexican Buns Choco Cheese,cat_pos_buns,Storable Product,Ordered quantities,Pcs,Rp 10.800   HTML
+prod_bun_ori_butter,Mexican Buns Original Butter,cat_pos_buns,Storable Product,Ordered quantities,Pcs,Rp 9.450   HTML
+prod_bun_van_butter,Mexican Buns Vanilla Butter,cat_pos_buns,Storable Product,Ordered quantities,Pcs,Rp 9.450   HTML
+prod_bun_cheese,Mexican Buns Cheese,cat_pos_buns,Storable Product,Ordered quantities,Pcs,Rp 10.800   HTML
+prod_bun_strawberry,Mexican Buns Vanilla Strawberry,cat_pos_buns,Storable Product,Ordered quantities,Pcs,Rp 10.800   HTML

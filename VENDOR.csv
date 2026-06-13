@@ -1,0 +1,12 @@
+id,name,is_company,supplier_rank,phone,email,city
+vendor_lalamove,Lalamove,True,1,021-12345678,info@lalamove.co.id,Jakarta
+vendor_deliveree,Deliveree,True,1,021-87654321,support@deliveree.com,Jakarta
+vendor_coldchain,PT. Cold Chain Nusantara,True,1,021-55566677,logistics@coldchain.co.id,Bekasi
+vendor_bogasari,PT. Bogasari Flour Mills,True,1,021-44433322,sales@bogasari.com,Jakarta
+vendor_sgcocoa,SG Cocoa Imports Pte Ltd,True,1,+65-98765432,export@sgcocoa.com,Singapore
+vendor_simas,PT. Margarin Simas Indonesia,True,1,021-11122233,contact@simas.co.id,Bekasi
+vendor_ragisejahtera,CV. Ragi Sejahtera,True,1,022-99988877,sales@ragisejahtera.id,Bandung
+vendor_telurmakmur,UD. Telur Makmur Jaya,True,1,0251-77766655,telur@makmurjaya.id,Bogor
+vendor_gulaputih,PT. Gula Putih Mataram,True,1,0721-44455566,info@gulaputih.co.id,Lampung
+vendor_susu_uht,PT. Susu Sehat Nusantara,True,1,021-33344455,distribusi@sususehat.id,Jakarta
+vendor_roastery,Mamma Roastery,True,1,021-22211100,coffee@mammaroti.com,Jakarta

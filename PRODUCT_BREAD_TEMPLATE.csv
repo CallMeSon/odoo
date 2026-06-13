@@ -1,0 +1,2 @@
+id,name,categ_id/id,detailed_type,uom_id/id,uom_po_id/id
+prod_mexican_buns,Mexican Buns,cat_pos_buns,product,uom.product_uom_unit,uom.product_uom_unit
