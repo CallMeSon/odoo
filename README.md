@@ -1,7 +1,6 @@
 # Implementasi ERP Odoo — Mamma Roti
 
 [![Odoo Version](https://img.shields.io/badge/Odoo-17.0-714B67.svg)](https://www.odoo.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Repositori ini berisi konfigurasi, data master, dan skrip otomasi untuk implementasi ERP Odoo 17 pada **Mamma Roti**. Proyek ini mencakup seluruh rantai pasok mulai dari pengadaan bahan baku, produksi (CK), distribusi, hingga penjualan di gerai (POS).
 
