@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- KPI-2: Custom Graph View on sale.order.line -->
+    <record id="view_sale_order_line_top_products_graph" model="ir.ui.view">
+        <field name="name">sale.order.line.top.products.graph</field>
+        <field name="model">sale.order.line</field>
+        <field name="arch" type="xml">
+            <graph string="Top Selling Products" type="bar" order="desc">
+                <field name="product_id" type="row"/>
+                <field name="product_uom_qty" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- KPI-2: Custom Action on sale.order.line -->
+    <record id="action_top_selling_products_graph" model="ir.actions.act_window">
+        <field name="name">Top Selling Products</field>
+        <field name="res_model">sale.order.line</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="domain">[('state', 'in', ('sale', 'done'))]</field>
+        <field name="context">{'search_default_product_id': 1, 'group_by': ['product_id']}</field>
+        <field name="view_id" ref="view_sale_order_line_top_products_graph"/>
+    </record>
+
+    <!-- KPI-1: Daily Revenue Graph View -->
+    <record id="view_mamma_roti_kpi_revenue_graph" model="ir.ui.view">
+        <field name="name">mamma_roti.kpi.revenue.graph</field>
+        <field name="model">mamma_roti.kpi.report</field>
+        <field name="arch" type="xml">
+            <graph string="Daily Revenue" type="line">
+                <field name="date" type="row" interval="day"/>
+                <field name="revenue" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- KPI-3: ATV Graph View -->
+    <record id="view_mamma_roti_kpi_atv_graph" model="ir.ui.view">
+        <field name="name">mamma_roti.kpi.atv.graph</field>
+        <field name="model">mamma_roti.kpi.report</field>
+        <field name="arch" type="xml">
+            <graph string="Average Transaction Value (ATV)" type="bar">
+                <field name="date" type="row" interval="day"/>
+                <field name="atv" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- KPI-4: Stock Discrepancy Rate Graph View -->
+    <record id="view_mamma_roti_kpi_discrepancy_graph" model="ir.ui.view">
+        <field name="name">mamma_roti.kpi.discrepancy.graph</field>
+        <field name="model">mamma_roti.kpi.report</field>
+        <field name="arch" type="xml">
+            <graph string="Stock Discrepancy Rate (%)" type="bar">
+                <field name="date" type="row" interval="day"/>
+                <field name="stock_discrepancy_rate" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- KPI-5: On-Time Delivery Rate Graph View -->
+    <record id="view_mamma_roti_kpi_otd_graph" model="ir.ui.view">
+        <field name="name">mamma_roti.kpi.otd.graph</field>
+        <field name="model">mamma_roti.kpi.report</field>
+        <field name="arch" type="xml">
+            <graph string="On-Time Delivery Rate (OTD)" type="line">
+                <field name="date" type="row" interval="day"/>
+                <field name="otd_rate" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Window Actions for Mamma Roti KPI Dashboard Components -->
+    <record id="action_mamma_roti_kpi_revenue" model="ir.actions.act_window">
+        <field name="name">Daily Revenue</field>
+        <field name="res_model">mamma_roti.kpi.report</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_id" ref="view_mamma_roti_kpi_revenue_graph"/>
+    </record>
+
+    <record id="action_mamma_roti_kpi_atv" model="ir.actions.act_window">
+        <field name="name">Average Transaction Value (ATV)</field>
+        <field name="res_model">mamma_roti.kpi.report</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_id" ref="view_mamma_roti_kpi_atv_graph"/>
+    </record>
+
+    <record id="action_mamma_roti_kpi_discrepancy" model="ir.actions.act_window">
+        <field name="name">Stock Discrepancy Rate</field>
+        <field name="res_model">mamma_roti.kpi.report</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_id" ref="view_mamma_roti_kpi_discrepancy_graph"/>
+    </record>
+
+    <record id="action_mamma_roti_kpi_otd" model="ir.actions.act_window">
+        <field name="name">On-Time Delivery Rate (OTD)</field>
+        <field name="res_model">mamma_roti.kpi.report</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_id" ref="view_mamma_roti_kpi_otd_graph"/>
+    </record>
+
+    <!-- KPI History List and Form Views -->
+    <record id="view_mamma_roti_kpi_report_tree" model="ir.ui.view">
+        <field name="name">mamma_roti.kpi.report.tree</field>
+        <field name="model">mamma_roti.kpi.report</field>
+        <field name="arch" type="xml">
+            <tree string="KPI Reports">
+                <field name="date"/>
+                <field name="revenue" sum="Total Revenue"/>
+                <field name="transaction_count" sum="Total Transactions"/>
+                <field name="atv" avg="Average ATV"/>
+                <field name="stock_discrepancy_rate" avg="Average Discrepancy"/>
+                <field name="otd_rate" avg="Average OTD"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_mamma_roti_kpi_report_form" model="ir.ui.view">
+        <field name="name">mamma_roti.kpi.report.form</field>
+        <field name="model">mamma_roti.kpi.report</field>
+        <field name="arch" type="xml">
+            <form string="KPI Report">
+                <header>
+                    <button name="action_refresh_dashboard" string="Refresh KPIs" type="object" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Basic Metrics">
+                            <field name="name" readonly="1"/>
+                            <field name="date" readonly="1"/>
+                            <field name="revenue" readonly="1"/>
+                            <field name="transaction_count" readonly="1"/>
+                            <field name="atv" readonly="1"/>
+                        </group>
+                        <group string="Inventory &amp; Operations">
+                            <field name="stock_discrepancy_rate" readonly="1"/>
+                            <field name="otd_rate" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mamma_roti_kpi_all" model="ir.actions.act_window">
+        <field name="name">KPI History</field>
+        <field name="res_model">mamma_roti.kpi.report</field>
+        <field name="view_mode">tree,form,pivot</field>
+    </record>
+
+    <!-- Odoo Dashboard View utilizing Board.board -->
+    <record id="view_mamma_roti_dashboard" model="ir.ui.view">
+        <field name="name">Mamma Roti Dashboard View</field>
+        <field name="model">board.board</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Mamma Roti Dashboard">
+                <board style="2-1">
+                    <column>
+                        <action name="%(action_mamma_roti_kpi_revenue)d" string="Daily Revenue"/>
+                        <action name="%(action_top_selling_products_graph)d" string="Top Selling Products"/>
+                    </column>
+                    <column>
+                        <action name="%(action_mamma_roti_kpi_atv)d" string="Average Transaction Value (ATV)"/>
+                        <action name="%(action_mamma_roti_kpi_discrepancy)d" string="Stock Discrepancy Rate (%)"/>
+                        <action name="%(action_mamma_roti_kpi_otd)d" string="On-Time Delivery Rate (%)"/>
+                    </column>
+                </board>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action to open the Dashboard -->
+    <record id="action_mamma_roti_dashboard_open" model="ir.actions.act_window">
+        <field name="name">Dashboard Mamma Roti</field>
+        <field name="res_model">board.board</field>
+        <field name="view_mode">form</field>
+        <field name="usage">menu</field>
+        <field name="view_id" ref="view_mamma_roti_dashboard"/>
+    </record>
+
+    <!-- Menu Hierarchies -->
+    <menuitem id="menu_mamma_roti_dashboard_root"
+              name="Mamma Roti Dashboard"
+              sequence="1"/>
+
+    <menuitem id="menu_mamma_roti_dashboard"
+              name="Dashboard"
+              parent="menu_mamma_roti_dashboard_root"
+              action="action_mamma_roti_dashboard_open"
+              sequence="10"/>
+
+    <menuitem id="menu_mamma_roti_kpi_history"
+              name="KPI History"
+              parent="menu_mamma_roti_dashboard_root"
+              action="action_mamma_roti_kpi_all"
+              sequence="20"/>
+</odoo>

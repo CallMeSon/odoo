@@ -1,16 +1,16 @@
 /** @odoo-module **/
 
-import {Component, onWillStart, useState, useSubEnv} from "@odoo/owl";
-import {useBus, useService} from "@web/core/utils/hooks";
+import { Component, onWillStart, useState, useSubEnv } from "@odoo/owl";
+import { useBus, useService } from "@web/core/utils/hooks";
 
-import {AnnotationDialog} from "../annotation_dialog/annotation_dialog.esm";
+import { AnnotationDialog } from "../annotation_dialog/annotation_dialog.esm";
 
-import {DateTimeInput} from "@web/core/datetime/datetime_input";
-import {SearchBar} from "@web/search/search_bar/search_bar";
-import {SearchModel} from "@web/search/search_model";
-import {_t} from "@web/core/l10n/translation";
-import {parseDate} from "@web/core/l10n/dates";
-import {registry} from "@web/core/registry";
+import { DateTimeInput } from "@web/core/datetime/datetime_input";
+import { SearchBar } from "@web/search/search_bar/search_bar";
+import { SearchModel } from "@web/search/search_model";
+import { _t } from "@web/core/l10n/translation";
+import { parseDate } from "@web/core/l10n/dates";
+import { registry } from "@web/core/registry";
 
 export class MisReportWidget extends Component {
     setup() {
@@ -22,7 +22,7 @@ export class MisReportWidget extends Component {
         this.dialogService = useService("dialog");
         this.JSON = JSON;
         this.state = useState({
-            mis_report_data: {header: [], body: [], notes: {}},
+            mis_report_data: { header: [], body: [], notes: {} },
             pivot_date: null,
             can_edit_annotation: false,
             can_read_annotation: false,
@@ -32,7 +32,7 @@ export class MisReportWidget extends Component {
             orm: this.orm,
             view: this.view,
         });
-        useSubEnv({searchModel: this.searchModel});
+        useSubEnv({ searchModel: this.searchModel });
         useBus(this.env.searchModel, "update", async () => {
             await this.env.searchModel.sectionsPromise;
             this.refresh();
@@ -42,9 +42,13 @@ export class MisReportWidget extends Component {
 
     // Lifecycle
     async willStart() {
+        const instanceId = this._instanceId();
+        if (!instanceId) {
+            return;
+        }
         const [result] = await this.orm.read(
             "mis.report.instance",
-            [this._instanceId()],
+            [instanceId],
             [
                 "source_aml_model_name",
                 "widget_show_filters",
@@ -55,7 +59,7 @@ export class MisReportWidget extends Component {
                 "user_can_read_annotation",
                 "user_can_edit_annotation",
             ],
-            {context: this.context}
+            { context: this.context }
         );
         this.source_aml_model_name = result.source_aml_model_name;
         this.widget_show_filters = result.widget_show_filters;
@@ -107,8 +111,11 @@ export class MisReportWidget extends Component {
          * of Odoo dashboards that are not designed to contain forms but
          * rather tree views or charts.
          */
-        var context = this.props.record.context;
-        if (context.active_model === "mis.report.instance") {
+        if (this.props.record && this.props.record.resModel === "mis.report.instance") {
+            return this.props.record.resId;
+        }
+        var context = this.props.record && this.props.record.context;
+        if (context && context.active_model === "mis.report.instance") {
             return context.active_id;
         }
     }
@@ -136,7 +143,7 @@ export class MisReportWidget extends Component {
             "mis.report.instance",
             "drilldown",
             [this._instanceId(), drilldown],
-            {context: this.context}
+            { context: this.context }
         );
         this.action.doAction(action);
     }
@@ -146,7 +153,7 @@ export class MisReportWidget extends Component {
             "mis.report.instance",
             "compute",
             [this._instanceId()],
-            {context: this.context}
+            { context: this.context }
         );
     }
 
@@ -155,7 +162,7 @@ export class MisReportWidget extends Component {
             "mis.report.instance",
             "get_notes_by_cell_id",
             [this._instanceId()],
-            {context: this.context}
+            { context: this.context }
         );
     }
 
@@ -164,7 +171,7 @@ export class MisReportWidget extends Component {
             "mis.report.instance",
             "print_pdf",
             [this._instanceId()],
-            {context: this.context}
+            { context: this.context }
         );
         this.action.doAction(action);
     }
@@ -174,7 +181,7 @@ export class MisReportWidget extends Component {
             "mis.report.instance",
             "export_xls",
             [this._instanceId()],
-            {context: this.context}
+            { context: this.context }
         );
         this.action.doAction(action);
     }
@@ -184,7 +191,7 @@ export class MisReportWidget extends Component {
             "mis.report.instance",
             "display_settings",
             [this._instanceId()],
-            {context: this.context}
+            { context: this.context }
         );
         this.action.doAction(action);
     }
@@ -194,7 +201,7 @@ export class MisReportWidget extends Component {
             "mis.report.instance.annotation",
             "remove_annotation",
             [cell_id, this._instanceId()],
-            {context: this.context}
+            { context: this.context }
         );
         await this.refresh_annotation();
     }
@@ -204,7 +211,7 @@ export class MisReportWidget extends Component {
             "mis.report.instance.annotation",
             "set_annotation",
             [cell_id, this._instanceId(), text],
-            {context: this.context}
+            { context: this.context }
         );
         await this.refresh_annotation();
     }
@@ -237,7 +244,7 @@ export class MisReportWidget extends Component {
     }
 }
 
-MisReportWidget.components = {SearchBar, DateTimeInput};
+MisReportWidget.components = { SearchBar, DateTimeInput };
 MisReportWidget.template = "mis_builder.MisReportWidget";
 
 export const misReportWidget = {
