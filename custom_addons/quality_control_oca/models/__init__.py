@@ -11,3 +11,5 @@ from . import product_category
 from . import qc_trigger_product_category_line
 from . import qc_trigger_product_line
 from . import qc_trigger_product_template_line
+from . import qc_inspection_mrp
+
